@@ -9,7 +9,7 @@ function App() {
     return (
         <div>
             <Counter/>
-            {/* <ProductList/> */}
+            <ProductList/>
             {/* <Skills/> */}
             {/* <Name value="sam" age={20}/>  */}
             {/* <h1>CGC React</h1> */}

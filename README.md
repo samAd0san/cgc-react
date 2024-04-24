@@ -29,8 +29,11 @@
 - <u>Presentation</u> component focuses on rendering UI elements based on the <u>data</u> and <u>props</u> passed to it.
 2. Class/Statefull component (Counter.jsx)
 - A <u>stateful</u> component in React manages its own state data, allowing it to change and update its UI based on internal state changes.
-- 
 
-
+# Tailwind Integration
+1. ```npm install -D tailwindcss postcss autoprefixer```
+2. ```npx tailwindcss init -p```
+3. Add in tailwind.config.cjs
+- ```"./index.html","./src/**/*.{js,ts,jsx,tsx}",```
 
 

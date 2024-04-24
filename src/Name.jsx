@@ -1,6 +1,7 @@
-function Name() {
+function Name({value, age}) {
+        // Interpolation
     return <div>
-        <span>Hello, SamAd</span>
+        <span>Hello, {value} {age}</span>
     </div>
 }
 

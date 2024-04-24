@@ -1,5 +1,6 @@
 import React from "react";
 
+// stateful component
 class Counter extends React.Component {
 
     state = {

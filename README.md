@@ -36,4 +36,14 @@
 3. Add in tailwind.config.cjs
 - ```"./index.html","./src/**/*.{js,ts,jsx,tsx}",```
 
+# UserList
+- We are adding UserLists throught APIs
 
+1. Adding <b>MainApp.jsx</b> (new component) to the <b>App.jsx</b> component. 
+2. Created <b>MainApp.jsx</b> and added another component in it i.e <b>UserList.jsx</b>
+3. Created <b>UserList.jsx</b> and fetched the user data through api using axios (3rd party)
+	- Also adding <b>Error.jsx</b> component for <b>conditional rendering</b>
+4. Created <b>Error.jsx</b> component 
+5. At last create the <b>Product.jsx</b> module (for next commit)
+
+- STEPS - UserList, Products, ... -> MainApp -> App.jsx 

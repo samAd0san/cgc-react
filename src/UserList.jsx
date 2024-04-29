@@ -1,8 +1,9 @@
 import { Component } from "react";
 import axios from "axios";
 import Error from "./util/Error";
+import ShouldRender from "./util/ShouldRender";
 
-function UserItem({ user }){
+function UserItem({ user }){ // We are displaying the info of the user
     return <div className="flex items-center mb-4" key={user.login.uuid}>
         {/* Displaying The image of the user */}
         <img width={200} height={200} className="rounded-full" src={user.picture.large}/> 
@@ -18,27 +19,23 @@ class UserList extends Component{
 
     render() { // 1st
         return <div>
-            {
-                // faliure scenario (1)
-                this.state.hasError &&<Error />
-            }
-            {
-                // faliure scenario (2)
-                this.state.hasError &&<Error msg={'Customized message'}/>
-            }
+            <ShouldRender when={this.state.hasError}> {/* On giving the 'when' it'll execute the children component */}
+                <Error msg="Customized" /> {/* This is the children of the ShouldRender */}
+                <Error /> {/* This is the children of the ShouldRender */}
+            </ShouldRender>
             <h1 className="mb-2 text-xl font-semibold text-black">Users</h1>
             {
                 // Success scenario
-                this.state.users.map(usr => <UserItem user={usr} />)
+                this.state.users.map(usr => <UserItem user={usr} />) // fetching the info of the user
             }
         </div>
     }
 
     constructor() { // 3rd
         super();
-        axios.get('https://randomuser.me/api/?results=5')
+        axios.get('https://randomuser1.me/api/?results=5')
             // CONDITIONAL RENDERING
-            .then(res => { this.setState( { users: res.data.results })})
+            .then(res => { this.setState( { users: res.data.results })}) // result is the field specified in the user
             .catch(() => { this.setState( {hasError : true })})
     }
     

@@ -47,3 +47,10 @@
 5. At last create the <b>Product.jsx</b> module (for next commit)
 
 - STEPS - UserList, Products, ... -> MainApp -> App.jsx 
+
+# ShouldRender
+- <b>ShouldRender</b> is a custom component used for conditional rendering in React. Its main use is to conditionally render its children based on a specified condition.
+- We use ShouldRender to improve the code quality and reusability.
+- In <b>when ? children : null;</b>, It checks the condition when. If <b>when</b> is true, it returns children, which are the elements passed as children to the ShouldRender component. If <b>when</b> is false, it returns null, indicating that nothing should be rendered. This allows for conditional rendering based on the when prop.
+- If the children is present it'll execute the children i.e 'Error' component in this case, if there is not any children it'll give null.
+- <b>children </b>is a predefined prop in React.

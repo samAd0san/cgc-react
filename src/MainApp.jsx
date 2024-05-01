@@ -1,5 +1,5 @@
 import UserList from "./UserList";
-import ProductList from "./ProductList";
+import ProductList from "./products/ProductList";
 
 function MainApp() {
     return (<main>

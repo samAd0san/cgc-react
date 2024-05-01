@@ -1,26 +1,31 @@
 import axios from "axios";
 import React from "react";
 import ProductItem from "./ProductItem";
-import ShouldRender from "./util/ShouldRender";
-import Error from "./util/Error";
+import ShouldRender from "../util/ShouldRender";
+import Error from "../util/Error";
+import Loader from "../util/Loader";
 
 class ProductList extends React.Component{
 
     state = {
         products : [],
         hasError : false,
+        loading : true,
     }
 
     constructor() {
         super();
         axios.get('http://localhost:3000/products')
-            .then(res => this.setState({ products : res.data.data }))
+            .then(res => this.setState({ products : res.data.data , loading : false})) 
             .catch(() => this.setState({ hasError : true }))
     }
 
     render() {
         return <div>
-            <ShouldRender when={this.state.hasError}>
+            <ShouldRender when={this.state.loading}> {/* When the loading is true */}
+                <Loader />
+            </ShouldRender>
+            <ShouldRender when={this.state.hasError}> {/* When hasError is true execute this Component */}
                 <Error />
             </ShouldRender>
             <h1 className="text-xl font-semibold text-gray-600">Products</h1>

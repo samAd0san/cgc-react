@@ -1,4 +1,4 @@
-import ShouldRender from "./util/ShouldRender";
+import ShouldRender from "../util/ShouldRender";
 
 // function to display the buttons (Add to cart, buy now, notify me)
 function Action({ product }) {

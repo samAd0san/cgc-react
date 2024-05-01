@@ -58,3 +58,14 @@
 # Adding products 
 1. Creating ProductList.jsx component which will iterate through the data and display all the products.
 2. Where ProductItem.jsx include styling that how a product should look like.
+
+# Loading
+- To implement Loading initially we keep it true, i.e it'll keep showing the loading icon (true) but when the data is fetched 
+to stop the loading we make it to (false).
+- In state the loading is true.
+- In response the loading will be false.
+
+1. /util/Loader.jsx
+2. In state add loading : true
+3. In constructor loading : false and render()
+4. /util/Loader.css

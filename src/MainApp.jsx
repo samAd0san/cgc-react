@@ -1,9 +1,11 @@
 import UserList from "./UserList";
-
+import ProductList from "./ProductList";
 
 function MainApp() {
     return (<main>
-        <UserList />
+        <div className="items-start">
+            <ProductList />
+        </div>
     </main>)
 }
 

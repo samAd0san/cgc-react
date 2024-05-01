@@ -33,7 +33,7 @@ class UserList extends Component{
 
     constructor() { // 3rd
         super();
-        axios.get('https://randomuser1.me/api/?results=5')
+        axios.get('https://randomuser.me/api/?results=5')
             // CONDITIONAL RENDERING
             .then(res => { this.setState( { users: res.data.results })}) // result is the field specified in the user
             .catch(() => { this.setState( {hasError : true })})

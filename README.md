@@ -69,3 +69,8 @@ to stop the loading we make it to (false).
 2. In state add loading : true
 3. In constructor loading : false and render()
 4. /util/Loader.css
+
+# Pagination
+1. Added two arrows left and right
+2. displayed the metadata
+3. fixed the limit of pages i.e pagination should stop at the first and last page

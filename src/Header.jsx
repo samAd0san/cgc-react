@@ -1,14 +1,14 @@
 function Header() {
     return(<header>
-        <nav className="flex bg-orange-500 text-white h-9 flow-root"> 
-            <div className="flex text-2xl font-lighter float-left hover:text-orange-600">
+        <nav className="flex bg-orange-500 text-white h-12 flow-root"> 
+            <div className="flex text-3xl mt-1 font-lighter float-left hover:text-orange-600">
                 <a href="" className="flex" >
                     {/* Adding a Pencil Icon */}
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6"><path strokeLinecap="round" strokeLinejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" /></svg>
                     TipKart
                 </a>
             </div>
-            <ul className="flex p-1 ml-4 float-right mr-4">
+            <ul className="flex text-lg p-1 ml-4 float-right mr-4">
                 <li className="p-1 hover:text-orange-600">Home</li>
                 <li className="p-1 hover:text-orange-600">About</li>
                 <li className="p-1 hover:text-orange-600">Products</li>

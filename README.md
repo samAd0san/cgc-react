@@ -74,3 +74,10 @@ to stop the loading we make it to (false).
 1. Added two arrows left and right
 2. displayed the metadata
 3. fixed the limit of pages i.e pagination should stop at the first and last page
+
+# Searching
+1. Added a search bar using Tailwind
+2. custom methods for events
+- onTextChange
+- onSearch
+- onKeyUp (To search when pressed the Enter key)

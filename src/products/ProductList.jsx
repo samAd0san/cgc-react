@@ -13,6 +13,7 @@ class ProductList extends React.Component {
         loading: true,
         page: 1,
         metadata: {},
+        search: ''
     }
 
     onPrev = () => {
@@ -26,13 +27,12 @@ class ProductList extends React.Component {
 
     onNext = () => {
         if (this.state.page < this.state.metadata.pages)
-        this.setState({
-            page: this.state.page + 1
-        })
+            this.setState({
+                page: this.state.page + 1
+            })
         console.log('onNext');
     }
-
-
+    
     constructor() {
         super();
         // axios.get(`http://localhost:3000/products/page/${this.state.page}/size/10`)
@@ -40,30 +40,39 @@ class ProductList extends React.Component {
         //     .catch(() => this.setState({ hasError: true }))
     }
 
-    fetchData() {
-        const url = `http://localhost:3000/products/page/${this.state.page}/size/6`
+    fetchData = () => {
+        const url = `http://localhost:3000/products/page/${this.state.page}/size/6?search=${this.state.search}`;
         axios.get(url)
             .then(res => this.setState({ products: res.data.data, metadata: res.data.metadata }))
             .catch(() => this.setState({ hasError: true }))
             .finally(() => this.setState({ loading: false }))
     }
 
-    componentDidMount() { // triggers data fetching when the component is mounted onto the DOM. 
-        // (or) fetches data as soon as the component is ready.
+    // returns boolean
+    shouldComponentUpdate(nextProps, nextState) {
+        return true;
+    }
+
+    componentDidMount() {
         this.fetchData();
     }
 
-/*
-    componentDidUpdate is a lifecycle method in React that is invoked after the component updates. In this specific 
-    case, it compares the previous state (b.page) with the current state (this.state.page). If there's a difference, 
-    it triggers a data fetch (this.fetchData()) to update the component with new data based on the current page state.
-*/
-    componentDidUpdate(a, b) { // the parameters a and b represent the previous props and previous state
-        if (b.page != this.state.page) {
-            this.fetchData();
-        }
-        // console.log(a);
-        // console.log(b);
+    componentWillUpdate() {
+        console.log('will update');
+    }
+
+    componentDidUpdate(nextProps, nextState) {
+        if (nextState.page !== this.state.page) this.fetchData();
+    }
+
+    onTextChange = (evt) => {
+        this.setState({ search: evt.target.value });
+    }
+
+    onSearch = () => this.fetchData();
+
+    onKeyUp = (evt) => {
+        if (evt.keyCode === 13) this.fetchData();
     }
 
     render() {
@@ -92,6 +101,20 @@ class ProductList extends React.Component {
                     </button>
                 </div>
 
+                {/* Adding a Search bar via Tailwind */}
+                <div>
+                    <label for="default-search" className="mb-2 text-sm font-medium text-gray-900 sr-only">Search</label>
+                    <div className="relative">
+                        <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                            <svg className="w-4 h-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                            </svg>
+                        </div>
+                        <input onKeyUp={this.onKeyUp} onChange={this.onTextChange} type="search" id="default-search" className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:border-gray-600 text-black dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search Brand" required />
+                        <button onClick={this.onSearch} type="submit" className="text-white absolute end-2.5 bottom-2.5 bg-orange-500 hover:bg-orange-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:focus:ring-blue-800">Search</button>
+                    </div>
+                </div>
+
             </div>;
 
             <ShouldRender when={this.state.loading}> {/* When the loading is true */}
@@ -108,6 +131,33 @@ class ProductList extends React.Component {
                 }
             </div>
         </div>
+    }
+
+    // returns boolean
+    shouldComponentUpdate(nextProps, nextState) {
+        return true;
+    }
+
+    componentDidMount() {
+        this.fetchData();
+    }
+
+    componentWillUpdate() {
+        console.log('will update');
+    }
+
+    componentDidUpdate(nextProps, nextState) {
+        if (nextState.page !== this.state.page) this.fetchData();
+    }
+
+    onTextChange = (evt) => { // Whenver the text is entered in the search bar
+        this.setState({ search: evt.target.value });
+    }
+
+    onSearch = () => this.fetchData();
+
+    onKeyUp = (evt) => {
+        if (evt.keyCode === 13) this.fetchData();
     }
 }
 

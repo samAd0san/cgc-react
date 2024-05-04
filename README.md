@@ -87,3 +87,13 @@ to stop the loading we make it to (false).
 2. declared sort and direction in state
 3. Added onSortChange event
 4. specified componentDidUpdate for sort and direction
+
+# Routing
+- <b>React Router DOM</b> is a library for handling routing in React applications, allowing for dynamic navigation and rendering of different components based on the URL, enhancing single-page application (SPA) functionality.
+
+- Steps to implemets 
+1. Create all the Pages you want to route eg. Home, About, Contact etc...
+2. npm install react-router-dom
+3. (In App.jsx) import BrowserRouter and wrap the Header, Footer and the main body in it.
+4. (In MainApp.jsx) specify i all the end points in it by importing Routes and Route
+5. Then go to Header and in XML wrap the element in Link tag and specify the endpoint which we did in the MainApp.jsx

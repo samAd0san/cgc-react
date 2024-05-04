@@ -81,3 +81,9 @@ to stop the loading we make it to (false).
 - onTextChange
 - onSearch
 - onKeyUp (To search when pressed the Enter key)
+
+# Sorting
+1. Create an select/option tag for sorting (UI)
+2. declared sort and direction in state
+3. Added onSortChange event
+4. specified componentDidUpdate for sort and direction

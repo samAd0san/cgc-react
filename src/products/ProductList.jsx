@@ -7,13 +7,19 @@ import Loader from "../util/Loader";
 
 class ProductList extends React.Component {
 
-    state = {
-        products: [],
-        hasError: false,
-        loading: true,
-        page: 1,
-        metadata: {},
-        search: ''
+    constructor() {
+        super();
+        
+        this.state = {
+            products: [],
+            hasError: false,
+            loading: true,
+            page: 1,
+            metadata: {},
+            search: '',
+            sort: '',
+            direction: ''
+        }
     }
 
     onPrev = () => {
@@ -32,47 +38,13 @@ class ProductList extends React.Component {
             })
         console.log('onNext');
     }
-    
-    constructor() {
-        super();
-        // axios.get(`http://localhost:3000/products/page/${this.state.page}/size/10`)
-        //     .then(res => this.setState({ products: res.data.data, loading: false }))
-        //     .catch(() => this.setState({ hasError: true }))
-    }
 
     fetchData = () => {
-        const url = `http://localhost:3000/products/page/${this.state.page}/size/6?search=${this.state.search}`;
+        const url = `http://localhost:3000/products/page/${this.state.page}/size/6?search=${this.state.search}&sort=${this.state.sort}&direction=${this.state.direction}`;
         axios.get(url)
             .then(res => this.setState({ products: res.data.data, metadata: res.data.metadata }))
             .catch(() => this.setState({ hasError: true }))
             .finally(() => this.setState({ loading: false }))
-    }
-
-    // returns boolean
-    shouldComponentUpdate(nextProps, nextState) {
-        return true;
-    }
-
-    componentDidMount() {
-        this.fetchData();
-    }
-
-    componentWillUpdate() {
-        console.log('will update');
-    }
-
-    componentDidUpdate(nextProps, nextState) {
-        if (nextState.page !== this.state.page) this.fetchData();
-    }
-
-    onTextChange = (evt) => {
-        this.setState({ search: evt.target.value });
-    }
-
-    onSearch = () => this.fetchData();
-
-    onKeyUp = (evt) => {
-        if (evt.keyCode === 13) this.fetchData();
     }
 
     render() {
@@ -110,26 +82,41 @@ class ProductList extends React.Component {
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
                             </svg>
                         </div>
-                        <input onKeyUp={this.onKeyUp} onChange={this.onTextChange} type="search" id="default-search" className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:border-gray-600 text-black dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search Brand" required />
-                        <button onClick={this.onSearch} type="submit" className="text-white absolute end-2.5 bottom-2.5 bg-orange-500 hover:bg-orange-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:focus:ring-blue-800">Search</button>
+                        <input onKeyUp={this.onKeyUp} onChange={this.onTextChange} type="search" id="default-search" className="h-11 mt-2 block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:border-gray-600 text-black dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search Brand" required />
+                        <button onClick={this.onSearch} type="submit" className="mt-2 text-white absolute end-2.5 bottom-2.5 bg-orange-500 hover:bg-orange-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-1 dark:focus:ring-blue-800">Search</button>
                     </div>
+                </div>
+                {/* Sorting UI */}
+                <div>
+                    <select onClick={this.onSortChange} className="h-11 border border-orange-500 h-10 rounded m-2">
+                        <option value="">Sort</option>
+                        <option value="price:asc">Price Low to High</option>
+                        <option value="price:desc">Price High to Low</option>
+                        <option value="discount:asc">Discount Low to High</option>
+                        <option value="discount:desc">Discount High to low</option>
+                    </select>
                 </div>
 
             </div>;
 
-            <ShouldRender when={this.state.loading}> {/* When the loading is true */}
+
+            {/* When the loading is true */}
+            <ShouldRender when={this.state.loading}>
                 <Loader />
             </ShouldRender>
 
-            <ShouldRender when={this.state.hasError}> {/* When hasError is true execute this Component */}
+            {/* When hasError is true execute this Component */}
+            <ShouldRender when={this.state.hasError}>
                 <Error />
             </ShouldRender>
 
-            <div className="grid md:grid-cols-3 sm:grid-cols-2"> {/*This keeps the products in cols and adjust size for small devices*/}
+            {/*This keeps the products in cols and adjust size for small devices*/}
+            <div className="grid md:grid-cols-3 sm:grid-cols-2">
                 {
                     this.state.products.map(prod => <ProductItem product={prod} />)
                 }
             </div>
+
         </div>
     }
 
@@ -147,7 +134,8 @@ class ProductList extends React.Component {
     }
 
     componentDidUpdate(nextProps, nextState) {
-        if (nextState.page !== this.state.page) this.fetchData();
+        if (nextState.page !== this.state.page || nextState.sort !== this.state.sort || nextState.direction !== this.state.direction)
+            this.fetchData();
     }
 
     onTextChange = (evt) => { // Whenver the text is entered in the search bar
@@ -158,6 +146,12 @@ class ProductList extends React.Component {
 
     onKeyUp = (evt) => {
         if (evt.keyCode === 13) this.fetchData();
+    }
+
+    onSortChange = (evt) => {
+        const sortString = evt.target.value;
+        const tokens = sortString.split(':');
+        this.setState({ sort: tokens[0], direction: tokens[1] });
     }
 }
 

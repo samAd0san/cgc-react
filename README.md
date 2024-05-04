@@ -97,3 +97,10 @@ to stop the loading we make it to (false).
 3. (In App.jsx) import BrowserRouter and wrap the Header, Footer and the main body in it.
 4. (In MainApp.jsx) specify i all the end points in it by importing Routes and Route
 5. Then go to Header and in XML wrap the element in Link tag and specify the endpoint which we did in the MainApp.jsx
+
+# moment.js
+- Moment.js is a JavaScript library for parsing, validating, manipulating, and formatting dates and times.
+```npm install moment```
+
+# ProductDetail
+- On Clicking to the image of a particular product it should show the details of the product.

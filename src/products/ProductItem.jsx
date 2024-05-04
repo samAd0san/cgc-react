@@ -1,4 +1,6 @@
+import moment from "moment";
 import ShouldRender from "../util/ShouldRender";
+import { Link } from "react-router-dom";
 
 // function to display the buttons (Add to cart, buy now, notify me)
 function Action({ product }) {
@@ -60,22 +62,24 @@ function Price({ product }) {
 function ProductItem({ product }) {
     return <div className="m-2 w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow">
 
-        <a href="#">
+        <Link to={'/products/' + product._id}>
             {/* Displaying Image of the Product */}
             <img src={product.image} alt="Product Image" className="p-8 rounded-t-lg" />
-        </a>
+        </Link>
 
         <div className="px-5 pb-5">
-            <a href="#">
-                <h5 className="text-xl font-semibold tracking-tight text-gray-900">
-                    {/* Displaying the name of the product i.e brand and model */}
-                    {product.brand} {product.model}
-                </h5>
-            </a>
+            <h5 className="text-xl font-semibold tracking-tight text-gray-900">
+                {/* Displaying the name of the product i.e brand and model */}
+                {product.brand} {product.model}
+            </h5>
 
             {/* Displaying the Price of the Product (with Discount) */}
             <Price product={product} />
+            {/* Displaying the buttons (Add to cart, buy now, notify me) */}
             <Action product={product} />
+
+            {/* Displaying the Date */}
+            <span>{moment(product.updateDate).fromNow()}</span>
         </div>
 
     </div>;

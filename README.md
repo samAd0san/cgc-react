@@ -104,3 +104,7 @@ to stop the loading we make it to (false).
 
 # ProductDetail
 - On Clicking to the image of a particular product it should show the details of the product.
+
+# Function Migration
+- <b>Hooks</b> in React are functions that enable functional components to use state, lifecycle methods, and other React features without writing a class.
+- Hooks => useState(), useEffect(), useParam().

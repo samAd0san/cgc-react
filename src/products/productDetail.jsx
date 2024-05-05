@@ -1,35 +1,35 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ShouldRender from "../util/ShouldRender";
 import Error from "../util/Error";
 import ProductItem from "./ProductItem";
 import axios from "axios";
+import { useParams } from "react-router-dom";
 
-class ProductDetail extends React.Component{
+function ProductDetail() {
 
-    state = { product : null, hasError : false}
+    const [product, setProduct] = useState(null);
+    const [hasError, setError] = useState(false);
+    const params = useParams();
 
-    componentDidMount() {
-
-        const id = '66320a25d241a76d97198c09'; // To make it dynamic we will have to do function migration
+    useEffect(() => {
+        const id = params.id;
         const url = `http://localhost:3000/products/${id}`;
         axios.get(url)
-            .then(res => this.setState({ product : res.data}))
-            .catch(() => this.setState({ hasError : true}))
-    }
+            .then(res => setProduct(res.data))
+            .catch(() => setError(true))
+    });
 
-    render() {
-        return <div>
-            <ShouldRender when={this.state.hasError}>
-                <Error />
-            </ShouldRender>
+    return <div>
+        <ShouldRender when={hasError}>
+            <Error />
+        </ShouldRender>
 
-            <div className="w-h-screen flex items-center justify-center"> 
-            <ShouldRender when={this.state.product}>
-                <ProductItem product={this.state.product} />
+        <div className="w-h-screen flex items-center justify-center">
+            <ShouldRender when={product}>
+                <ProductItem product={product} />
             </ShouldRender>
-            </div>
         </div>
-    }
+    </div>
 }
 
 export default ProductDetail;

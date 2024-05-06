@@ -2,7 +2,7 @@ import moment from "moment";
 import ShouldRender from "../util/ShouldRender";
 import { Link } from "react-router-dom";
 import NoProductImg from "../assets/no-img.jpg"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // function to display the buttons (Add to cart, buy now, notify me)
 function Action({ product }) {
@@ -63,16 +63,17 @@ function Price({ product }) {
 // Displays image, product name, Action, Price
 function ProductItem({ product }) {
 
-    const [src, setSrc] = useState(product.image || NoProductImg)
-    function onImgError() {
-        setSrc(NoProductImg)
-    }
+    const [src, setSrc] = useState(null);
+
+    useEffect(() => {
+        setSrc(product.image || NoProductImg)
+    })
 
     return <div className="m-2 w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow">
 
         <Link to={'/products/' + product._id}>
             {/* Displaying Image of the Product */}
-            <img onError={onImgError} src={src} alt="Product Image" className="p-8 rounded-t-lg" />
+            <img src={src} alt="Product Image" className="p-8 rounded-t-lg" />
         </Link>
 
         <div className="px-5 pb-5">

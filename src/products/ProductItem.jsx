@@ -67,7 +67,7 @@ function ProductItem({ product }) {
 
     useEffect(() => {
         setSrc(product.image || NoProductImg)
-    })
+    },[product])
 
     return <div className="m-2 w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow">
 

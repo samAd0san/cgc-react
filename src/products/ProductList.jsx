@@ -4,6 +4,7 @@ import ProductItem from "./ProductItem";
 import ShouldRender from "../util/ShouldRender";
 import Error from "../util/Error";
 import Loader from "../util/Loader";
+import { Link } from "react-router-dom";
 
 function ProductList() {
 
@@ -24,15 +25,17 @@ function ProductList() {
         if (page < metadata.pages) setPage(page + 1);
     }
 
-    const fetchData = () => {
+    const fetchData = async () => {
         const url = `http://localhost:3000/products/page/${page}/size/10?search=${search}&sort=${sort}&direction=${direction}`;
-        axios.get(url)
-            .then(res => {
-                setProducts(res.data.data);
-                setMetadata(res.data.metadata);
-            })
-            .catch(() => setError(true))
-            .finally(() => setLoading(false))
+        try { // Refactor
+            const res = await axios.get(url);
+            setProducts(res.data.data);
+            setMetadata(res.data.metadata);
+        } catch (err) {
+            setError(true);
+        } finally {
+            setLoading(false);
+        }
     }
 
     useEffect(() => {
@@ -105,6 +108,8 @@ function ProductList() {
                 </select>
             </div>
 
+            {/* Icon for Adding a New Product */}
+            <Link to="/products/new" className="mx-4 rounded my-2 p-2 bg-orange-500 text-white hover:bg-orange-600">Add Product</Link>
         </div>;
 
 

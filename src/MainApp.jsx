@@ -7,6 +7,7 @@ import NotFound from "./NotFound";
 import UserList from "./UserList";
 import ProductList from "./products/ProductList";
 import ProductDetail from "./products/productDetail";
+import NewProduct from "./products/NewProduct";
 
 function MainApp() {
     return (<main className="flex flex-col justify-between min-h-screen"> {/*To keep the product and arrow buttons aligned at the top */}
@@ -17,6 +18,7 @@ function MainApp() {
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/products" element={<ProductList />} />
                 <Route path="/products/:id" element={<ProductDetail />} />
+                <Route path="/products/new" element={<NewProduct />} />
                 <Route path="/users" element={<UserList />} />
 
                 <Route path="*" element={<NotFound />} />

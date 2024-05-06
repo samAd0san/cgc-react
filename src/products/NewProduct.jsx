@@ -39,7 +39,7 @@ function NewProduct() {
                 inStock: false
             })
             // redirects the user to the '/products' route after the successful data submission
-            navigate('/products/')
+            // navigate('/products/')
         } catch {
             setError(true);
         }
@@ -60,24 +60,61 @@ function NewProduct() {
                 <option value="Google">Google</option>
                 <option value="Realme">Realme</option>
             </select>
+            {/* If Not Entered value */}
+            <ShouldRender when={!product.brand}>
+            <div className="text-red-500 m-1 text-sm">Brand is required</div>
+            </ShouldRender>
         </div>
 
         {/* Model */}
         <div className="mb-4">
             <label className="block py-1 text-l font-semibold text-gray-700">Model</label>
             <input name="model" value={product.model} onChange={onInputChange} placeholder="model" className="border border-gray-500 p-1 rounded w-1/3" type="text" />
+            {/* If Not Entered value */}
+            <ShouldRender when={!product.model}>
+            <div className="text-red-500 m-1 text-sm">Model is required</div>
+            </ShouldRender>
+            {/* Validations */}
+            <ShouldRender when={product.model && product.model.length < 3}>
+                <div className="text-red-500 m-1 text-sm">Min 3 chars</div>
+            </ShouldRender>
+            <ShouldRender when={product.model && product.model.length > 20}>
+                <div className="text-red-500 m-1 text-sm">Max 20 chars</div>
+            </ShouldRender>
         </div>
 
         {/* Price */}
         <div className="mb-4">
             <label className="block py-1 font-semibold text-gray-700">Price</label>
             <input name="price" value={product.price} onChange={onInputChange} placeholder="price" className="border border-gray-500 p-1 rounded w-1/3" type="text" />
+             {/* If Not Entered value */}
+             <ShouldRender when={!product.price}>
+            <div className="text-red-500 m-1 text-sm">Price is required</div>
+            </ShouldRender>
+            {/* Validations */}
+            <ShouldRender when={product.price && product.price.length < 3}>
+                <div className="text-red-500 m-1 text-sm">Min 3 chars</div>
+            </ShouldRender>
+            <ShouldRender when={product.price && product.price.length > 20}>
+                <div className="text-red-500 m-1 text-sm">Max 20 chars</div>
+            </ShouldRender>
         </div>
 
         {/* Discount */}
         <div className="mb-4">
             <label className="block py-1 font-semibold text-gray-700">Discount</label>
             <input name="discount" value={product.discount} onChange={onInputChange} placeholder="discount" className="border border-gray-500 p-1 rounded w-1/3" type="text" />
+             {/* If Not Entered value */}
+             <ShouldRender when={!product.discount}>
+            <div className="text-red-500 m-1 text-sm">Discount is required</div>
+            </ShouldRender>
+            {/* Validations */}
+            <ShouldRender when={product.discount && product.discount.length < 3}>
+                <div className="text-red-500 m-1 text-sm">Min 3 chars</div>
+            </ShouldRender>
+            <ShouldRender when={product.discount && product.discount.length > 20}>
+                <div className="text-red-500 m-1 text-sm">Max 20 chars</div>
+            </ShouldRender>
         </div>
 
         {/* inStock */}
@@ -89,11 +126,16 @@ function NewProduct() {
 
             <input name="inStock" value={false} onChange={onInputChange} type="radio" />
             <label className="py-1 m-2 font-semibold text-gray-700">No</label>
+
+             {/* If Not Entered value */}
+             <ShouldRender when={!product.inStock}>
+            <div className="text-red-500 m-1 text-sm">Field input is required</div>
+            </ShouldRender>
         </div>
 
         {/* Button (submit) */}
         <div>
-            <button onClick={onSaveBtn} className="bg-orange-500 hover:bg-orange-600 px-4 rounded py-1 text-white">Save</button>
+            <button disabled={!product.brand || !product.model || !product.price} onClick={onSaveBtn} className="bg-orange-500 hover:bg-orange-600 px-4 rounded py-1 text-white">Save</button>
         </div>
 
         {/* Faliure (Error) */}

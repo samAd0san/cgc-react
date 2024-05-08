@@ -39,7 +39,7 @@ function NewProduct() {
                 inStock: false
             })
             // redirects the user to the '/products' route after the successful data submission
-            // navigate('/products/')
+            navigate('/products/')
         } catch {
             setError(true);
         }
@@ -107,13 +107,6 @@ function NewProduct() {
              {/* If Not Entered value */}
              <ShouldRender when={!product.discount}>
             <div className="text-red-500 m-1 text-sm">Discount is required</div>
-            </ShouldRender>
-            {/* Validations */}
-            <ShouldRender when={product.discount && product.discount.length < 3}>
-                <div className="text-red-500 m-1 text-sm">Min 3 chars</div>
-            </ShouldRender>
-            <ShouldRender when={product.discount && product.discount.length > 20}>
-                <div className="text-red-500 m-1 text-sm">Max 20 chars</div>
             </ShouldRender>
         </div>
 

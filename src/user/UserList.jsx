@@ -1,7 +1,7 @@
 import { Component } from "react";
 import axios from "axios";
-import Error from "./util/Error";
-import ShouldRender from "./util/ShouldRender";
+import Error from "../util/Error";
+import ShouldRender from "../util/ShouldRender";
 
 function UserItem({ user }){ // We are displaying the info of the user
     return <div className="flex items-center mb-4" key={user.login.uuid}>

@@ -11,7 +11,8 @@ function NewProduct() {
         model: '',
         price: '',
         discount: '',
-        inStock: false
+        inStock: false,
+        image: null
     })
 
     const [hasError, setError] = useState(false);
@@ -25,10 +26,22 @@ function NewProduct() {
 
     const navigate = useNavigate();
 
+    const onFileChange = (evt) => {
+        const newState = {...product, image: evt.target.files[0]};
+        setProduct(newState);
+    }
+
     const onSaveBtn = async () => {
         try {
+
+            const fd = new FormData();
+
+            for(let key in product) {
+                fd.append(key, product[key]);
+            }
+
             const url = `http://localhost:3000/products`
-            await axios.post(url, product);
+            await axios.post(url, fd);
             setSuccess(true);
             //  Setting empty strings to all attributes of the product state resets the form fields after successful data submission in the onSave function.
             setProduct({
@@ -36,10 +49,13 @@ function NewProduct() {
                 model: '',
                 price: '',
                 discount: '',
-                inStock: false
+                inStock: false,
+                image: null
             })
             // redirects the user to the '/products' route after the successful data submission
-            navigate('/products/')
+            setTimeout(()=>{
+                navigate('/products/');
+            },1000);
         } catch {
             setError(true);
         }
@@ -48,6 +64,16 @@ function NewProduct() {
     return (<div className="m-2 p-2">
         {/* New Product */}
         <h1 className="text-xl font-bold">New Product</h1>
+
+        {/* Faliure (Error) */}
+        <ShouldRender when={hasError}>
+            <Error msg={'Failed to save data, please try again.'} />
+        </ShouldRender>
+
+        {/* Success */}
+        <ShouldRender when={success}>
+            <div className="p-2 my-4 w-1/2 bg-green-500 text-white rounded">Successfully saved data.</div>
+        </ShouldRender>
 
         {/* Brand */}
         <div className="mb-4">
@@ -126,20 +152,16 @@ function NewProduct() {
             </ShouldRender>
         </div>
 
+        {/* File Upload */}
+        <div className="mb-4">
+            <label className="block py-1 font-semibold text-gray-700">File</label>
+            <input type="file" onChange={onFileChange}/>
+        </div>
+
         {/* Button (submit) */}
         <div>
             <button disabled={!product.brand || !product.model || !product.price} onClick={onSaveBtn} className="bg-orange-500 hover:bg-orange-600 px-4 rounded py-1 text-white">Save</button>
         </div>
-
-        {/* Faliure (Error) */}
-        <ShouldRender when={hasError}>
-            <Error msg={'Failed to save data, please try again.'} />
-        </ShouldRender>
-
-        {/* Success */}
-        <ShouldRender when={success}>
-            <div className="p-2 my-4 w-1/2 bg-green-500 text-white rounded">Successfully saved data.</div>
-        </ShouldRender>
     </div>);
 }
 

@@ -65,6 +65,11 @@ function ProductList() {
         setDirection(tokens[1]);
     }
 
+    const customRefresh = (id) => {
+        console.log('product deleted with id', id);
+        fetchData();
+    }
+
     return <div>
 
         {/* This displays the left and right button for pagination */}
@@ -132,7 +137,7 @@ function ProductList() {
         {/*This keeps the products in cols and adjust size for small devices*/}
         <div className="grid md:grid-cols-3 sm:grid-cols-2">
             {
-                products.map(prod => <ProductItem product={prod} />)
+                products.map(prod => <ProductItem product={prod} onItemDelete={customRefresh}/>)
             }
         </div>
 

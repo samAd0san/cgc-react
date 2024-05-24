@@ -4,6 +4,7 @@ import Error from "../util/Error";
 import ProductItem from "./ProductItem";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import axiosInstance from "../util/axios";
 
 function ProductDetail() {
 
@@ -13,8 +14,8 @@ function ProductDetail() {
 
     useEffect(() => {
         const id = params.id;
-        const url = `http://localhost:3000/products/${id}`;
-        axios.get(url)
+        const path = `/products/${id}`;
+        axiosInstance().get(path)
             .then(res => setProduct(res.data))
             .catch(() => setError(true))
     });

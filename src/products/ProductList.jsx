@@ -4,7 +4,7 @@ import ProductItem from "./ProductItem";
 import ShouldRender from "../util/ShouldRender";
 import Error from "../util/Error";
 import Loader from "../util/Loader";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function ProductList() {
 
@@ -17,6 +17,8 @@ function ProductList() {
     const [sort, setSort] = useState('');
     const [direction, setDirection] = useState('');
 
+    const navigate = useNavigate();
+
     const onPrev = () => {
         if (page > 1) setPage(page - 1);
     }
@@ -28,10 +30,17 @@ function ProductList() {
     const fetchData = async () => {
         const url = `http://localhost:3000/products/page/${page}/size/10?search=${search}&sort=${sort}&direction=${direction}`;
         try { // Refactor
-            const res = await axios.get(url);
+            const res = await axios.get(url,{
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}` // getItem() - When passed a key name, It will return that key's value, or null if the key does not exist to the local Storage
+                }
+            });
             setProducts(res.data.data);
             setMetadata(res.data.metadata);
         } catch (err) {
+            if(err.response && err.response.status === 401){
+                navigate('/login');
+            }
             setError(true);
         } finally {
             setLoading(false);

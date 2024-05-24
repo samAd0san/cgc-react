@@ -19,12 +19,15 @@ const Login = () => {
     try {
       console.log("user consolelog", user);
       const res = await axios.post(`http://localhost:3000/users/signin`, user); // 'user' sends the user's login credentials to the server for authentication.
+
+      // When the user login the token is generated, we are saving the token in the local storage 
+      localStorage.setItem('token',res.data.token); // We are giving the key name and value, It will add the key in the local storage (Application)
       navigate("/products");
     } catch (err) {
       setError(true);
-      setTimeout(()=>{
+      setTimeout(() => {
         setError(false);
-      },2000)
+      }, 2000)
     }
   };
 
@@ -33,7 +36,7 @@ const Login = () => {
       <form className="space-y-4" onSubmit={onLogin}>
         {/* Error handling */}
         <ShouldRender when={hasError}>
-          <Error msg='Invalid Email or Password'/>
+          <Error msg='Invalid Email or Password' />
         </ShouldRender>
 
         <h1 className="m-1 text-2xl font-bold text-gray-600">Login</h1>

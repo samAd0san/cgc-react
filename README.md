@@ -108,3 +108,17 @@ to stop the loading we make it to (false).
 # Function Migration
 - <b>Hooks</b> in React are functions that enable functional components to use state, lifecycle methods, and other React features without writing a class.
 - Hooks => useState(), useEffect(), useParam().
+
+# Auth Token 
+- We are implementing the user authentication, when the use signin the token is generated, the generated token is required to be passed in the header to access the <b>Product page</b>.
+
+- Now to give the token to the browser we use the local storage of the browser to store the token, navigate by inspect -> applications -> Local Storage
+that is where you can view the token which is stored in the local storage
+
+1. In login.jsx we are saving the token which is generated when user signs in, we save it in the local storage with the method, 
+<b>setItem(tokenName, tokenValue)</b> It is the method of the Storage interface, when passed a key name and value, will add that key to the given Storage object, or update that key's value if it already exists.
+
+2. In Product.jsx we are passing the token in the headers in order to access the <b>Product Page</b>, by
+<b>getItem(tokenName)</b>, tokenName - which was set in setItem.
+
+3. If the token is expired we will redirect the page to the <b>Login page</b>.

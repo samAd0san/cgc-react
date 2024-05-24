@@ -5,6 +5,7 @@ import ShouldRender from "../util/ShouldRender";
 import Error from "../util/Error";
 import Loader from "../util/Loader";
 import { Link, useNavigate } from "react-router-dom";
+import axiosInstance from "../util/axios";
 
 function ProductList() {
 
@@ -28,13 +29,9 @@ function ProductList() {
     }
 
     const fetchData = async () => {
-        const url = `http://localhost:3000/products/page/${page}/size/10?search=${search}&sort=${sort}&direction=${direction}`;
+        const path = `/products/page/${page}/size/10?search=${search}&sort=${sort}&direction=${direction}`;
         try { // Refactor
-            const res = await axios.get(url,{
-                headers: {
-                    Authorization: `Bearer ${localStorage.getItem('token')}` // getItem() - When passed a key name, It will return that key's value, or null if the key does not exist to the local Storage
-                }
-            });
+            const res = await axiosInstance().get(path);
             setProducts(res.data.data);
             setMetadata(res.data.metadata);
         } catch (err) {

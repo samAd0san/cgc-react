@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Error from "../util/Error";
 import ShouldRender from "../util/ShouldRender";
+import axiosInstance from "../util/axios";
 
 function NewProduct() {
 
@@ -40,8 +41,8 @@ function NewProduct() {
                 fd.append(key, product[key]);
             }
 
-            const url = `http://localhost:3000/products`
-            await axios.post(url, fd);
+            const path = `products`
+            await axiosInstance().post(path, fd);
             setSuccess(true);
             //  Setting empty strings to all attributes of the product state resets the form fields after successful data submission in the onSave function.
             setProduct({

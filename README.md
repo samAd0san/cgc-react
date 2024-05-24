@@ -122,3 +122,16 @@ that is where you can view the token which is stored in the local storage
 <b>getItem(tokenName)</b>, tokenName - which was set in setItem.
 
 3. If the token is expired we will redirect the page to the <b>Login page</b>.
+
+# Custom axios
+- we have created a custom axios to refactor the code and avoid repeating the same code i.e to setItem('token') whenver any request is initiated;
+
+- In axios.js <br>
+
+1. It creates and returns an Axios instance configured with a base URL and headers, including an authorization token if available.
+
+2. The token is included in the <b>headers</b> object. If a token is found in <b>localStorage</b>, it is retrieved and added to the <b>authorization</b> header as <b>Bearer ${token}</b>, which is then passed to the Axios instance configuration.
+
+3. The <b>baseURL</b> is the root URL for all relative URLs in the requests made by the Axios instance. It's typically the base address of the API server.
+<br>
+The <b>headers</b> object contains key-value pairs of HTTP headers to be included in every request sent by the Axios instance. In this case, it includes the authorization header, which may contain a token for authentication purposes if one is found in the localStorage.

@@ -17,9 +17,9 @@ function ProductList(){
                 </div>)
             } */}
 
-        <table class="w-full text-sm text-left text-black-500 dark:text-black-400" border={1} width="100%">
-            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:text-dark-400">
-                <tr class="bg-white border-t border-b dark:border-gray-700">
+        <table className="w-full text-sm text-left text-black-500 dark:text-black-400" border={1} width="100%">
+            <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:text-dark-400">
+                <tr className="bg-white border-t border-b dark:border-gray-700">
                     <th>Id</th>
                     <th>Brand</th>
                     <th>Model</th>
@@ -37,7 +37,7 @@ function ProductList(){
 
 // Presentation Component
 function ProductItem({item}){
-    return <tr class="bg-white border-b dark:border-gray-700">
+    return <tr className="bg-white border-b dark:border-gray-700">
         <td>{item.id}</td>
         <td>{item.brand}</td>
         <td>{item.model}</td>

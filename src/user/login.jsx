@@ -1,13 +1,15 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ShouldRender from "../util/ShouldRender";
 import Error from "../util/Error";
+import UserContext from "../context/UserContext";
 
 const Login = () => {
   const [user, setUser] = useState("");
   const [hasError, setError] = useState(false);
   const navigate = useNavigate();
+  const { setLoggedIn } = useContext(UserContext);
 
   const onInputChange = (evt) => {
     const newUser = { ...user, [evt.target.name]: evt.target.value };
@@ -17,14 +19,19 @@ const Login = () => {
   const onLogin = async (evt) => {
     evt.preventDefault();
     try {
-      console.log("user consolelog", user);
+      console.log("user console.log", user);
       const res = await axios.post(`http://localhost:3000/users/signin`, user); // 'user' sends the user's login credentials to the server for authentication.
 
       // When the user login the token is generated, we are saving the token in the local storage 
-      localStorage.setItem('token',res.data.token); // We are giving the key name and value, It will add the key in the local storage (Application)
-      navigate("/products");
+      localStorage.setItem('token', res.data.token); // We are giving the key name and value, It will add the key in the local storage (Application)
+      navigate("/products"); // Navigate to the login page after the user loggs in successfully
+
+      setLoggedIn(true); // When the user Logs in set it to true
+
     } catch (err) {
+      // Setting error true
       setError(true);
+      // It should show the error for 2 seconds
       setTimeout(() => {
         setError(false);
       }, 2000)

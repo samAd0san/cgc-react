@@ -135,3 +135,16 @@ that is where you can view the token which is stored in the local storage
 3. The <b>baseURL</b> is the root URL for all relative URLs in the requests made by the Axios instance. It's typically the base address of the API server.
 <br>
 The <b>headers</b> object contains key-value pairs of HTTP headers to be included in every request sent by the Axios instance. In this case, it includes the authorization header, which may contain a token for authentication purposes if one is found in the localStorage.
+
+# Context API (Login/Logout)
+- when we Login the <b>Logout button</b> should appear, similarly when we Logut the <b>Login button</b> should appear.To Implement this we use Context API 
+
+- Managing state is an essential part of developing applications in React. A common way to manage state is by passing props. Passing props means sending data from one component to another. It's a good way to make sure that data gets to the right place in a React application. <br><br>But it can be annoying to pass props when you have to send the same data to lots of components or when components are far away from each other. This can make an application slower and harder to work with. <br><br>Fortunately, React provides a built-in feature known as the <b>Context API</b> that helps “teleport” data to the components that need it without passing props. <br>
+
+- If we pass props to a parent component, any of its child or grandchild components can access and utilize those props through prop drilling.
+
+- ### Implementation
+1. userContext.js ->  creates a React context called UserContext with an initial value of an empty object.
+2. App.jsx -> initializing the variables and passing it to children
+3. Header.jsx -> setting the user to logged out if the user triggers the logged out button
+4. Login.jsx -> settting the user to logged in if the user enter the creds and logs in
